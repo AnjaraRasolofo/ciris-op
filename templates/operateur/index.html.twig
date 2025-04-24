@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Operateur index{% endblock %}
+
+{% block body %}
+    <h1>Operateur index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Email</th>
+                <th>Telephone</th>
+                <th>Matricule</th>
+                <th>DateEmbauche</th>
+                <th>Poste</th>
+                <th>Status</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for operateur in operateurs %}
+            <tr>
+                <td>{{ operateur.id }}</td>
+                <td>{{ operateur.nom }}</td>
+                <td>{{ operateur.prenom }}</td>
+                <td>{{ operateur.email }}</td>
+                <td>{{ operateur.telephone }}</td>
+                <td>{{ operateur.matricule }}</td>
+                <td>{{ operateur.dateEmbauche ? operateur.dateEmbauche|date('Y-m-d') : '' }}</td>
+                <td>{{ operateur.poste }}</td>
+                <td>{{ operateur.status }}</td>
+                <td>
+                    <a href="{{ path('app_operateur_show', {'id': operateur.id}) }}">show</a>
+                    <a href="{{ path('app_operateur_edit', {'id': operateur.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_operateur_new') }}">Create new</a>
+{% endblock %}

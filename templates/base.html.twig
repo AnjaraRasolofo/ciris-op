@@ -4,6 +4,8 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+        <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" crossorigin="anonymous">
         {% block stylesheets %}
         {% endblock %}
 
@@ -11,7 +13,43 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body>
+    <body style="width:80%; margin:auto; padding-top: 100px;">
+        <header style="padding:10px 100px;">
+            <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid d-flex align-items-center justify-content-between">
+
+                <!-- Logo + Hamburger -->
+                <div class="d-flex align-items-center">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand p-3 me-3" href="#">
+                    <img src="{{asset('assets/images/logo.png')}}" alt="Logo App" />
+                </a>
+                
+                </div>
+
+                <!-- Right Side -->
+                <div class="d-flex align-items-center">
+                <a href="#" class="btn btn-outline-dark me-2">Connexion</a>
+                <a href="#" class="btn btn-link p-0">
+                    <i class="bi bi-search" style="font-size: 1.5rem;"></i>
+                </a>
+                </div>
+            </div>
+            </nav>
+
+            <!-- Optional collapsed menu -->
+            <div class="collapse" id="menuContent">
+            <div class="bg-light p-3">
+                <ul class="list-unstyled mb-0">
+                <li><a href="#" class="text-dark">Operateur</a></li>
+                <li><a href="#" class="text-dark"></a></li>
+                </ul>
+            </div>
+            </div>
+        </header>
         {% block body %}{% endblock %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     </body>
 </html>
