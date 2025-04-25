@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Planning index{% endblock %}
+
+{% block body %}
+    <h1 class="pt-3">🗓️ Planning index</h1>
+
+    <form method="get" class="row g-2 mb-4">
+        <div class="col-md-4">
+            <select name="type" class="form-select">
+                <option value="">— Filtrer par type —</option>
+                {% for t in ['jour', 'nuit', 'weekend', 'congé'] %}
+                    <option value="{{ t }}" {{ app.request.get('type') == t ? 'selected' : '' }}>
+                        {{ t|capitalize }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <select name="operateur" class="form-select">
+                <option value="">— Filtrer par opérateur —</option>
+                {% for op in operateurs %}
+                    <option value="{{ op.id }}" {{ app.request.get('operateur') == op.id ? 'selected' : '' }}>
+                        {{ op.nom }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-outline-success w-50">Filtrer</button>
+        </div>
+    </form>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Debut</th>
+                <th>Fin</th>
+                <th>Type</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for planning in plannings %}
+            <tr>
+                <td>{{ planning.id }}</td>
+                <td>{{ planning.debut ? planning.debut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ planning.fin ? planning.fin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    {% set color = {
+                        'jour': 'primary',
+                        'nuit': 'dark',
+                        'weekend': 'warning',
+                        'congé': 'danger'
+                    }[planning.type] ?? 'secondary' %}
+
+                    <span class="badge bg-{{ color }}">
+                        {{ planning.type|capitalize }}
+                    </span>
+                </td>
+                <td>
+                    <a href="{{ path('app_planning_show', {'id': planning.id}) }}">show</a>
+                    <a href="{{ path('app_planning_edit', {'id': planning.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_planning_new') }}" class="btn btn-outline-success">🕒 Ajouter</a>
+    <a href="{{ path('app_planning_export_pdf') }}" class="btn btn-outline-danger">
+    🧾 Exporter en PDF
+    </a>
+    {# Pagination #}
+        {% if totalPages > 1 %}
+        <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center mt-4">
+            {% for i in 1..totalPages %}
+            <li class="page-item {{ currentPage == i ? 'active' : '' }}">
+                <a class="page-link" href="?page={{ i }}{% if app.request.get('type') %}&type={{ app.request.get('type') }}{% endif %}{% if app.request.get('operateur') %}&operateur={{ app.request.get('operateur') }}{% endif %}">
+                {{ i }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        </nav>
+        {% endif %}
+        
+{% endblock %}

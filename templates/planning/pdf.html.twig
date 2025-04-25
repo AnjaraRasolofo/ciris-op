@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; font-size: 12px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #444; padding: 5px; text-align: left; }
+        th { background-color: #eee; }
+    </style>
+</head>
+<body>
+    <h2>Liste des plannings</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Opérateur</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for planning in plannings %}
+                <tr>
+                    <td>{{ planning.debut|date('d/m/Y H:i') }} - {{ planning.fin|date('H:i') }}</td>
+                    <td>{{ planning.type }}</td>
+                    <td>{{ planning.operateur.nom }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

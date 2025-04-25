@@ -52,10 +52,17 @@ class Operateur
     #[ORM\OneToMany(targetEntity: Planning::class, mappedBy: 'operateur', orphanRemoval: true)]
     private Collection $plannings;
 
+    /**
+     * @var Collection<int, Planning>
+     */
+    #[ORM\OneToMany(targetEntity: Planning::class, mappedBy: 'operateur')]
+    private Collection $no;
+
     public function __construct()
     {
         $this->sessions = new ArrayCollection();
         $this->plannings = new ArrayCollection();
+        $this->no = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -213,6 +220,36 @@ class Operateur
             // set the owning side to null (unless already changed)
             if ($planning->getOperateur() === $this) {
                 $planning->setOperateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Planning>
+     */
+    public function getNo(): Collection
+    {
+        return $this->no;
+    }
+
+    public function addNo(Planning $no): static
+    {
+        if (!$this->no->contains($no)) {
+            $this->no->add($no);
+            $no->setOperateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNo(Planning $no): static
+    {
+        if ($this->no->removeElement($no)) {
+            // set the owning side to null (unless already changed)
+            if ($no->getOperateur() === $this) {
+                $no->setOperateur(null);
             }
         }
 

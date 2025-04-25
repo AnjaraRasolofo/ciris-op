@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Planning par opérateur{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="mb-4">📅 Planning hebdomadaire par opérateur</h1>
+
+    <div class="row">
+        {# Boucle à travers les opérateurs et leurs plannings #}
+        {% for operateur, data in operateursGroupes %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-header bg-light">
+                        👨‍💼 <strong>{{ data.prenom }}</strong>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% for planning in data.plannings %}
+                            <li class="list-group-item">
+                                🗓 {{ planning.debut|date('d/m H:i') }} → {{ planning.fin|date('d/m H:i') }}<br>
+                                🔁 {% set badgeClass = 'badge' %}
+                                {% if planning.type == 'jour' %}
+                                    {% set badgeClass = badgeClass ~ ' bg-primary' %}
+                                {% elseif planning.type == 'nuit' %}
+                                    {% set badgeClass = badgeClass ~ ' bg-dark' %}
+                                {% elseif planning.type == 'weekend' %}
+                                    {% set badgeClass = badgeClass ~ ' bg-warning' %}
+                                {% elseif planning.type == 'congé' %}
+                                    {% set badgeClass = badgeClass ~ ' bg-secondary' %}
+                                {% else %}
+                                    {% set badgeClass = badgeClass ~ ' bg-info' %}
+                                {% endif %}
+                                <span class="{{ badgeClass }}">{{ planning.type|capitalize }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+

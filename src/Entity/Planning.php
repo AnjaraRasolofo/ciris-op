@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PlanningRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PlanningRepository::class)]
 class Planning
@@ -20,8 +21,11 @@ class Planning
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $fin = null;
 
-    #[ORM\ManyToOne(inversedBy: 'plannings')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\Choice(choices: ['jour', 'nuit', 'weekend', 'conge'], message: 'Type invalide.')]
+    #[ORM\Column(length: 20, nullable: true)]
+    private ?string $type = null;
+
+    #[ORM\ManyToOne(inversedBy: 'no')]
     private ?Operateur $operateur = null;
 
     public function getId(): ?int
@@ -49,6 +53,18 @@ class Planning
     public function setFin(\DateTimeInterface $fin): static
     {
         $this->fin = $fin;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }
