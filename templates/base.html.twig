@@ -23,7 +23,7 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand p-3 me-3" href="#">
+                <a class="navbar-brand p-3 me-3" href="/">
                     <img src="{{asset('assets/images/logo.png')}}" alt="Logo App" />
                 </a>
                 
@@ -39,13 +39,15 @@
             </div>
             </nav>
 
-            <!-- Optional collapsed menu -->
+            <!-- Menu deroulant à l'interieur de l'Hamburger -->
             <div class="collapse" id="menuContent">
             <div class="bg-light p-3">
                 <ul class="list-unstyled mb-0">
-                <li><a href="/operateurs" class="text-dark">Operateur</a></li>
-                <li><a href="/planning" class="text-dark">Plannings</a></li>
-                <li><a href="/session" class="text-dark">Sessions</a></li>
+                <li><a href="/" class="text-dark">Dashboard</a></li>
+                <li><a href="/operateurs" class="text-dark">Operateurs</a></li>
+                <li><a href="/planning-op" class="text-dark">Plannings</a></li>
+                <li><a href="/sessions" class="text-dark">Sessions</a></li>
+                <li><a href="#" class="text-dark">Congés</a></li>
                 <li><a href="/logout" class="text-dark">Déconnexion</a></li>
                 </ul>
             </div>

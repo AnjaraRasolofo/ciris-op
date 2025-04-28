@@ -16,28 +16,29 @@ class SessionRepository extends ServiceEntityRepository
         parent::__construct($registry, Session::class);
     }
 
-    //    /**
-    //     * @return Session[] Returns an array of Session objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function countActiveSessions(): int
+    {
+        return $this->createQueryBuilder('s')
+            ->select('COUNT(s.id)')
+            ->where('s.isActive = :active')
+            ->setParameter('active', true)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 
-    //    public function findOneBySomeField($value): ?Session
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function getTotalMessagesEnvoyes(): int
+    {
+        return $this->createQueryBuilder('s')
+            ->select('SUM(s.messagesEnvoyes)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getTotalMessagesRecus(): int
+    {
+        return (int) $this->createQueryBuilder('s')
+            ->select('SUM(s.messagesRecus)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

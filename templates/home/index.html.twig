@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue dans CIRIS-OP!{% endblock %}
+
+{% block body %}
+<style>
+  .card-info {
+    transition: transform 0.3s ease;
+  }
+  .card-info:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+</style>
+
+<div class="example-wrapper">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4"><a href="/" style="text-decoration:none;color:black;">CIRIS-OP!</a></h1>
+            <p class="lead">Application de gestion d'opérateurs permettant une organisation efficace des équipes de communication. Elle offre une interface simple pour suivre les sessions des opérateurs (messages envoyés, reçus, durée), gérer leurs plannings et analyser leurs performances à travers des statistiques détaillées. Les administrateurs peuvent facilement superviser, ajuster les horaires, et générer des rapports. L'application intègre également une messagerie interne pour améliorer la communication. Conçue pour être flexible et sécurisée, elle s'adapte à tous types d'équipes et optimise la productivité tout en garantissant un contrôle total des activités.</p>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+    <div class="row">
+      <!-- Nombre total d'opérateurs -->
+      <div class="col-md-3">
+        <div class="card card-info">
+          <div class="card-body text-center">
+            <h5 class="card-title">Total des opérateurs</h5>
+            <p class="display-4">{{ totalOperateurs }}</p>
+            <p>Opérateurs actifs</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sessions en cours -->
+      <div class="col-md-3">
+        <div class="card card-info">
+          <div class="card-body text-center">
+            <h5 class="card-title">Sessions en cours</h5>
+            <p class="display-4">12</p>
+            <p>Sessions actives</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Statistiques récentes -->
+      <div class="col-md-3">
+        <div class="card card-info">
+          <div class="card-body text-center">
+            <h5 class="card-title">Statistiques récentes</h5>
+            <p><strong>Messages envoyés:</strong> {{ totalMessagesEnvoyes }}</p>
+            <p><strong>Messages reçus:</strong> {{ totalMessagesRecus }}</p>
+            <p><strong>Performance moyenne:</strong> 95%</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notifications ou alertes -->
+      <div class="col-md-3">
+        <div class="card card-info">
+          <div class="card-body">
+            <h5 class="card-title">Alertes</h5>
+            <ul class="list-group">
+              <li class="list-group-item">⚠️ 1 tâche urgente en attente.</li>
+              <li class="list-group-item">⚠️ 2 erreurs système détectées.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notifications en temps réel avec Appel AJAX JavaScript) -->
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Notifications en temps réel</h5>
+            <div id="notifications" class="alert alert-info">
+              Aucune notification pour le moment.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+    
+</div>
+<script>
+  setInterval(function() {
+    // Appel AJAX pour récupérer les nouvelles données
+    fetch('/api/sessions-en-cours')
+      .then(response => response.json())
+      .then(data => {
+        document.querySelector('#sessions-en-cours').textContent = data.sessions;
+      });
+  }, 5000); 
+</script>
+{% endblock %}
