@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conge{% endblock %}
+
+{% block body %}
+    <h1>Conge</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ conge.id }}</td>
+            </tr>
+            <tr>
+                <th>Debut</th>
+                <td>{{ conge.debut ? conge.debut|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Fin</th>
+                <td>{{ conge.fin ? conge.fin|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Motif</th>
+                <td>{{ conge.motif }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ conge.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_conge_index') }}">back to list</a>
+
+    <a href="{{ path('app_conge_edit', {'id': conge.id}) }}">edit</a>
+
+    {{ include('conge/_delete_form.html.twig') }}
+{% endblock %}
