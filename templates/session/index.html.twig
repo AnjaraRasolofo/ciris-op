@@ -3,8 +3,8 @@
 {% block title %}Session index{% endblock %}
 
 {% block body %}
-    <h1>Session index</h1>
-
+    <h1 class="mb-3">Session index</h1>
+    <a href="{{ path('app_session_new') }}" class="btn btn-primary mb-3"><i class="bi bi-plus-square"></i> Nouveau</a>
     <table class="table">
         <thead>
             <tr>
@@ -25,8 +25,8 @@
                 <td>{{ session.messagesEnvoyes }}</td>
                 <td>{{ session.messagesRecus }}</td>
                 <td>
-                    <a href="{{ path('app_session_show', {'id': session.id}) }}">show</a>
-                    <a href="{{ path('app_session_edit', {'id': session.id}) }}">edit</a>
+                    <a href="{{ path('app_session_show', {'id': session.id}) }}" class="btn btn-secondary"><i class="bi bi-eye-fill"></i> Voir</a>
+                    <a href="{{ path('app_session_edit', {'id': session.id}) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i> Modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -37,5 +37,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_session_new') }}">Create new</a>
 {% endblock %}

@@ -1,13 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Conge{% endblock %}
+{% block title %}Modifier un congé{% endblock %}
 
 {% block body %}
-    <h1>Edit Conge</h1>
+    <h1 class="mb-3">Modifier un congé</h1>
+    <a href="{{ path('app_conge_index') }}" class="btn btn-secondary mb-3"><i class="bi bi-arrow-left-short"></i> Précedent</a>
 
-    {{ include('conge/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_conge_index') }}">back to list</a>
-
-    {{ include('conge/_delete_form.html.twig') }}
+    {{ include('conge/_form.html.twig') }}
 {% endblock %}

@@ -3,9 +3,10 @@
 {% block title %}New Conge{% endblock %}
 
 {% block body %}
-    <h1>Create new Conge</h1>
+    <h1 class="mb-3">Nouveau congé</h1>
+    <a href="{{ path('app_conge_index') }}" class="btn btn-secondary mb-3"><i class="bi bi-arrow-left-short"></i> Précedent</a>
 
-    {{ include('conge/_form.html.twig') }}
+    {{ include('conge/_form.html.twig', {'id': conge.id}) }}
     
-    <a href="{{ path('app_conge_index') }}">back to list</a>
+    
 {% endblock %}

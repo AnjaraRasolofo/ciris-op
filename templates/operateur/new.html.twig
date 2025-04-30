@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Operateur{% endblock %}
+{% block title %}Nouvel opérateur{% endblock %}
 
 {% block body %}
-    <h1>Create new Operateur</h1>
+    <h1>Nouvel opérateur</h1>
+    <a href="{{ path('app_operateur_index') }}" class="btn btn-secondary mb-3"><i class="bi bi-arrow-left-short"></i> Précedent</a>
 
     {{ include('operateur/_form.html.twig') }}
 
-    <a href="{{ path('app_operateur_index') }}">back to list</a>
+    
 {% endblock %}

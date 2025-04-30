@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Operateur{% endblock %}
+{% block title %}Modifier un opérateur{% endblock %}
 
 {% block body %}
-    <h1>Edit Operateur</h1>
+    <h1>Modifier un opérateur</h1>
+
+    <a href="{{ path('app_operateur_index') }}" class="btn btn-secondary mb-3"><i class="bi bi-arrow-left-short"></i> Précedent</a>
 
     {{ include('operateur/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_operateur_index') }}">back to list</a>
-
-    {{ include('operateur/_delete_form.html.twig') }}
+    
 {% endblock %}

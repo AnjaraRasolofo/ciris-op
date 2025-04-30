@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Operateur</h1>
 
+    <a href="{{ path('app_operateur_index') }}" class="btn btn-secondary"><i class="bi bi-arrow-left-short"></i> Précedent</a>
+
     <table class="table">
         <tbody>
             <tr>
@@ -46,9 +48,12 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_operateur_index') }}">back to list</a>
+    <div class="d-flex mt-3">
+        <a href="{{ path('app_operateur_edit', {'id': operateur.id}) }}" class="btn btn-primary me-2">
+            <i class="bi bi-pencil-square"></i> Modifier
+        </a>
 
-    <a href="{{ path('app_operateur_edit', {'id': operateur.id}) }}">edit</a>
+        {{ include('operateur/_delete_form.html.twig') }}
+    </div>
 
-    {{ include('operateur/_delete_form.html.twig') }}
 {% endblock %}

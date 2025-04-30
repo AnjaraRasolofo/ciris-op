@@ -5,7 +5,7 @@
 {% block body %}
 <div class="container mt-4">
     <h1 class="mb-4">📅 Planning hebdomadaire des opérateurs</h1>
-
+    <a href="{{ path('app_planning_index') }}" class="btn btn-secondary mb-3">Gérer les plannings</a>
     <div class="row">
         {# Boucle à travers les opérateurs et leurs plannings #}
         {% for operateur, data in operateursGroupes %}
