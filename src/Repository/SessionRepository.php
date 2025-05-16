@@ -23,7 +23,7 @@ class SessionRepository extends ServiceEntityRepository
             ->where('s.isActive = :active')
             ->setParameter('active', true)
             ->getQuery()
-            ->getSingleScalarResult();
+            ->getSingleScalarResult() ?? 0;
     }
 
     public function getTotalMessagesEnvoyes(): int
@@ -31,7 +31,7 @@ class SessionRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('s')
             ->select('SUM(s.messagesEnvoyes)')
             ->getQuery()
-            ->getSingleScalarResult();
+            ->getSingleScalarResult() ?? 0;
     }
 
     public function getTotalMessagesRecus(): int
@@ -39,6 +39,23 @@ class SessionRepository extends ServiceEntityRepository
         return (int) $this->createQueryBuilder('s')
             ->select('SUM(s.messagesRecus)')
             ->getQuery()
-            ->getSingleScalarResult();
+            ->getSingleScalarResult() ?? 0;
     }
+
+    public function getStatsOfToday(): array
+{
+    $today = new \DateTimeImmutable('today');
+    $tomorrow = $today->modify('+1 day');
+
+    return $this->createQueryBuilder('s')
+        ->select('COUNT(s.id) AS totalSessions')
+        ->addSelect('SUM(s.messagesEnvoyes) AS totalEnvoyes')
+        ->addSelect('SUM(s.messagesRecus) AS totalRecus')
+        ->where('s.debut >= :today')
+        ->andWhere('s.debut < :tomorrow')
+        ->setParameter('today', $today)
+        ->setParameter('tomorrow', $tomorrow)
+        ->getQuery()
+        ->getOneOrNullResult();
+}
 }

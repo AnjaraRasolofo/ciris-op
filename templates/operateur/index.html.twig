@@ -4,27 +4,31 @@
 
 {% block body %}
     <h1 class="mb-3">Liste des operateurs</h1>
-    <a href="{{ path('app_operateur_new') }}" class="btn btn-primary"><i class="bi bi-plus-square"></i> Nouveau</a>
+    <div class="d-flex justify-content-between mb-3">
+        <a href="{{ path('app_operateur_new') }}" class="btn btn-primary"><i class="bi bi-plus-square"></i> Nouveau</a>
+        <form method="get" action="" class="d-flex" role="search">
+            <input type="text" name="search" value="{{ search }}" class="form-control me-2" placeholder="Rechercher un nom...">
+            <button type="submit" class="btn btn-warning">Rechercher</button>
+        </form>
+    </div>
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
-                <th>Prenom</th>
-                <th>Email</th>
+                <th style="max-width: 250px;">Email</th>
                 <th>Telephone</th>
                 <th>Matricule</th>
                 <th>DateEmbauche</th>
                 <th>Poste</th>
                 <th>Status</th>
-                <th>actions</th>
+                <th style="width: 220px;">actions</th>
             </tr>
         </thead>
         <tbody>
         {% for operateur in operateurs %}
             <tr>
                 <td>{{ operateur.id }}</td>
-                <td>{{ operateur.nom }}</td>
                 <td>{{ operateur.prenom }}</td>
                 <td>{{ operateur.email }}</td>
                 <td>{{ operateur.telephone }}</td>
@@ -33,15 +37,27 @@
                 <td>{{ operateur.poste }}</td>
                 <td>{{ operateur.status }}</td>
                 <td>
-                    <a href="{{ path('app_operateur_show', {'id': operateur.id}) }}" class="btn btn-secondary"><i class="bi bi-eye-fill"></i> Voir</a>
-                    <a href="{{ path('app_operateur_edit', {'id': operateur.id}) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i> Modifier</a>
+                    <a href="{{ path('app_operateur_show', {'id': operateur.id}) }}" class="btn btn-secondary"><i class="bi bi-eye-fill"></i></a>
+                    <a href="{{ path('app_operateur_edit', {'id': operateur.id}) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="10">no records found</td>
+                <td colspan="10">aucun enregistrement trouvé</td>
             </tr>
         {% endfor %}
+
+        <div class="pagination">
+            {% if currentPage > 1 %}
+                <a href="?page={{ currentPage - 1 }}" class="text-decoration-none me-3 mb-3">← Précédent</a>
+            {% endif %}
+
+            Page {{ currentPage }} sur {{ totalPages }}
+
+            {% if currentPage < totalPages %}
+                <a href="?page={{ currentPage + 1 }}" class="text-decoration-none ms-3 mb-3">Suivant →</a>
+            {% endif %}
+        </div>
         </tbody>
     </table>
 {% endblock %}

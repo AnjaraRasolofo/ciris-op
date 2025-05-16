@@ -21,6 +21,8 @@ final class HomeController extends AbstractController
         $totalMessagesRecus = $sessionRepository->getTotalMessagesRecus();
         $totalCongesEnAttente = $congeRepository->countCongesEnAttente();
         //$notifications = $notificationRepository->count(['isRead' => false]);
+
+        $stats = $sessionRepository->getStatsOfToday();
         
         return $this->render('home/index.html.twig', [
             'totalOperateurs' => $totalOperateurs,
@@ -29,6 +31,7 @@ final class HomeController extends AbstractController
             'totalMessagesRecus' => $totalMessagesRecus,
             //'notifications' => $notifications,
             'totalCongesEnAttente' => $totalCongesEnAttente,
+            'stats' => $stats
         ]);
 
     }

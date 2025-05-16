@@ -40,7 +40,7 @@
         <div class="card card-info">
           <div class="card-body text-center">
             <h5 class="card-title">Sessions en cours</h5>
-            <p class="display-4">12</p>
+            <p class="display-4">{{ stats.totalSessions }}</p>
             <p>Sessions actives</p>
           </div>
         </div>
@@ -51,8 +51,8 @@
         <div class="card card-info">
           <div class="card-body text-center">
             <h5 class="card-title">Statistiques récentes</h5>
-            <p><strong>Messages envoyés:</strong> {{ totalMessagesEnvoyes }}</p>
-            <p><strong>Messages reçus:</strong> {{ totalMessagesRecus }}</p>
+            <p><strong>Messages envoyés:</strong> {{ stats.totalEnvoyes ?? 0 }}</p>
+            <p><strong>Messages reçus:</strong> {{ stats.totalRecus ?? 0 }}</p>
             <p><strong>Performance moyenne:</strong> 95%</p>
           </div>
         </div>

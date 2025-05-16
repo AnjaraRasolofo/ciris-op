@@ -1,11 +1,12 @@
+ 
 {{ form_start(form) }}
     {{ form_widget(form) }}
-
-    <div class="d-flex mt-3">
+    <div class="d-flex mt-3 mb-5">
         <button class="btn btn-primary me-2"><i class="bi bi-pencil-square"></i> {{ button_label|default('Enregistrer') }}</button>
-        
-        {% if operateur.id is not null %}
-           {{ include('operateur/_delete_form.html.twig') }}
-        {% endif %}
-    </div>
+    
 {{ form_end(form) }}
+
+{% if operateur.id is not null %}
+           {{ include('operateur/_delete_form.html.twig', {'operateur': operateur}) }}
+    </div>
+{% endif %}

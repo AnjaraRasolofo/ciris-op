@@ -53,7 +53,7 @@
             <i class="bi bi-pencil-square"></i> Modifier
         </a>
 
-        {{ include('operateur/_delete_form.html.twig') }}
+        {{ include('operateur/_delete_form.html.twig', {'operateur' :operateur}) }}
     </div>
 
 {% endblock %}

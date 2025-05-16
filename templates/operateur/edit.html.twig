@@ -5,8 +5,8 @@
 {% block body %}
     <h1>Modifier un opérateur</h1>
 
-    <a href="{{ path('app_operateur_index') }}" class="btn btn-secondary mb-3"><i class="bi bi-arrow-left-short"></i> Précedent</a>
+    <a href="{{ path('app_operateur_index') }}" class="btn btn-secondary mb-2"><i class="bi bi-arrow-left-short"></i> Précedent</a>
 
-    {{ include('operateur/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('operateur/_form.html.twig', {'button_label': 'Enregistrer'}) }}
     
 {% endblock %}

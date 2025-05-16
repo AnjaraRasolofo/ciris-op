@@ -28,7 +28,7 @@ class Conge
 
     #[ORM\ManyToOne(inversedBy: 'conges')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Operateur $user = null;
+    private ?Operateur $operateur = null;
 
     public function getId(): ?int
     {
@@ -83,14 +83,14 @@ class Conge
         return $this;
     }
 
-    public function getUser(): ?Operateur
+    public function getOperateur(): ?Operateur
     {
-        return $this->user;
+        return $this->operateur;
     }
 
-    public function setUser(?Operateur $user): static
+    public function setOperateur(?Operateur $operateur): static
     {
-        $this->user = $user;
+        $this->operateur = $operateur;
 
         return $this;
     }

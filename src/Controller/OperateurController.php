@@ -15,10 +15,22 @@ use Symfony\Component\Routing\Attribute\Route;
 final class OperateurController extends AbstractController
 {
     #[Route(name: 'app_operateur_index', methods: ['GET'])]
-    public function index(OperateurRepository $operateurRepository): Response
+    public function index(Request $request, OperateurRepository $operateurRepository): Response
     {
+        $page = max(1, $request->query->getInt('page', 1));
+        $search = $request->query->get('search', '');
+        $limit = 10;
+
+        $paginator = $operateurRepository->findPaginatedByName($search, $page, $limit);
+        $totalItems = count($paginator);
+        $totalPages = ceil($totalItems / $limit);
+
+        //var_dump($paginator);
         return $this->render('operateur/index.html.twig', [
-            'operateurs' => $operateurRepository->findAll(),
+            'operateurs' => $paginator,
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+            'search' => $search
         ]);
     }
 
@@ -71,10 +83,15 @@ final class OperateurController extends AbstractController
     #[Route('/{id}', name: 'app_operateur_delete', methods: ['POST'])]
     public function delete(Request $request, Operateur $operateur, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$operateur->getId(), $request->getPayload()->getString('_token'))) {
+        
+        //if ($this->isCsrfTokenValid('delete'.$operateur->getId(), $request->request->get('_token'))) {
+            
+            
+                   
             $entityManager->remove($operateur);
+            
             $entityManager->flush();
-        }
+        //}
 
         return $this->redirectToRoute('app_operateur_index', [], Response::HTTP_SEE_OTHER);
     }

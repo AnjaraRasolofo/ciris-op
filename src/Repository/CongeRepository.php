@@ -34,6 +34,6 @@ class CongeRepository extends ServiceEntityRepository
             ->where('c.status = :status')
             ->setParameter('status', 'en attente')
             ->getQuery()
-            ->getSingleScalarResult();
+            ->getSingleScalarResult() ?? 0;
     }
 }

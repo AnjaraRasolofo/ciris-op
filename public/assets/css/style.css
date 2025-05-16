@@ -1,0 +1,45 @@
+header {
+    height: 100px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    background-color: white;
+    padding: 0 20px;
+  }
+
+  .navbar {
+    height: 100%;
+  }
+
+  .navbar-brand img {
+    height: 50px;
+  }
+
+  .navbar-toggler {
+    display: block !important;
+    border: none;
+    font-size: 1.5rem;
+    background: none;
+  }
+
+  .bg-primary {
+    background-color: #17a2b8 !important;
+  }
+
+  .bg-dark {
+      background-color: #343a40 !important;
+  }
+
+  .bg-warning {
+      background-color: #db7f29 !important;
+  }
+
+  .bg-secondary {
+      background-color: #6c757d !important;
+  }
+
+  .bg-info {
+      background-color: #5228e7 !important;
+  }

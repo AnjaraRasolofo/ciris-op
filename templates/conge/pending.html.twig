@@ -10,7 +10,7 @@
         <ul>
             {% for conge in congesEnAttente %}
                 <li>
-                    {{ conge.user.prenom }} :
+                    {{ conge.operateur.prenom }} :
                     du {{ conge.debut|date('d/m/Y') }} au {{ conge.fin|date('d/m/Y') }}
                     ({{ conge.motif ?? 'Pas de raison spécifiée' }})
                     

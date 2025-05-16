@@ -9,6 +9,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Operateur</th>
                 <th>Debut</th>
                 <th>Fin</th>
                 <th>MessagesEnvoyes</th>
@@ -20,13 +21,14 @@
         {% for session in sessions %}
             <tr>
                 <td>{{ session.id }}</td>
+                <td>{{ session.operateur.prenom}}</td>
                 <td>{{ session.debut ? session.debut|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ session.fin ? session.fin|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ session.messagesEnvoyes }}</td>
                 <td>{{ session.messagesRecus }}</td>
                 <td>
-                    <a href="{{ path('app_session_show', {'id': session.id}) }}" class="btn btn-secondary"><i class="bi bi-eye-fill"></i> Voir</a>
-                    <a href="{{ path('app_session_edit', {'id': session.id}) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i> Modifier</a>
+                    <a href="{{ path('app_session_show', {'id': session.id}) }}" class="btn btn-secondary"><i class="bi bi-eye-fill"></i></a>
+                    <a href="{{ path('app_session_edit', {'id': session.id}) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
                 </td>
             </tr>
         {% else %}

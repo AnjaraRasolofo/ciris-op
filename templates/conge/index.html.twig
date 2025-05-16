@@ -4,11 +4,12 @@
 
 {% block body %}
     <h1 class="mb-3">Congés des personnels</h1>
-    <a href="{{ path('app_conge_new') }}" class="btn btn-primary"><i class="bi bi-plus-square"></i> Nouveau</a>
+    <a href="{{ path('app_conge_new') }}" class="btn btn-primary mb-3"><i class="bi bi-plus-square"></i> Nouveau</a>
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Operateur</th>
                 <th>Debut</th>
                 <th>Fin</th>
                 <th>Motif</th>
@@ -20,13 +21,14 @@
         {% for conge in conges %}
             <tr>
                 <td>{{ conge.id }}</td>
+                <td>{{ conge.operateur.prenom }}</td>
                 <td>{{ conge.debut ? conge.debut|date('Y-m-d') : '' }}</td>
                 <td>{{ conge.fin ? conge.fin|date('Y-m-d') : '' }}</td>
                 <td>{{ conge.motif }}</td>
                 <td>{{ conge.status }}</td>
                 <td>
-                    <a href="{{ path('app_conge_show', {'id': conge.id}) }}" class="btn btn-secondary"><i class="bi bi-eye-fill"></i> Voir</a>
-                    <a href="{{ path('app_conge_edit', {'id': conge.id}) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i> Modifier</a>
+                    <a href="{{ path('app_conge_show', {'id': conge.id}) }}" class="btn btn-secondary"><i class="bi bi-eye-fill"></i></a>
+                    <a href="{{ path('app_conge_edit', {'id': conge.id}) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
                 </td>
             </tr>
         {% else %}

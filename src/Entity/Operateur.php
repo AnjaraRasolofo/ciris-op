@@ -43,13 +43,13 @@ class Operateur
     /**
      * @var Collection<int, Session>
      */
-    #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'operateur', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Session::class, mappedBy: 'operateur')]
     private Collection $sessions;
 
     /**
      * @var Collection<int, Planning>
      */
-    #[ORM\OneToMany(targetEntity: Planning::class, mappedBy: 'operateur', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Planning::class, mappedBy: 'operateur')]
     private Collection $plannings;
 
     /**
@@ -61,7 +61,7 @@ class Operateur
     /**
      * @var Collection<int, Conge>
      */
-    #[ORM\OneToMany(targetEntity: Conge::class, mappedBy: 'operateur', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Conge::class, mappedBy: 'operateur')]
     private Collection $conges;
 
     public function __construct()

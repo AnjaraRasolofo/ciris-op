@@ -26,7 +26,7 @@ class Session
     #[ORM\Column]
     private ?int $messagesRecus = null;
 
-    #[ORM\ManyToOne(inversedBy: 'sessions')]
+    #[ORM\ManyToOne(targetEntity: Operateur::class, inversedBy: 'sessions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Operateur $operateur = null;
 
