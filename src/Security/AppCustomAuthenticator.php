@@ -16,6 +16,10 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
+
 class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
@@ -26,20 +30,33 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
     {
     }
 
+   public function supports(Request $request): bool
+{
+    dump($request->attributes->get('_route'), $request->isMethod('POST'));
+    return $request->attributes->get('_route') === 'app_login'
+        && $request->isMethod('POST');
+}
+
+
     public function authenticate(Request $request): Passport
     {
-        $username = $request->getPayload()->getString('username');
+
+        $username = $request->request->get('username', '');
+        $password = $request->request->get('password', '');
+        $csrfToken = $request->request->get('_csrf_token', '');
 
         $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $username);
 
         return new Passport(
             new UserBadge($username),
-            new PasswordCredentials($request->getPayload()->getString('password')),
+            new PasswordCredentials($password),
             [
-                new CsrfTokenBadge('authenticate', $request->getPayload()->getString('_csrf_token')),
+                new CsrfTokenBadge('authenticate', $csrfToken),
                 new RememberMeBadge(),
             ]
         );
+
+
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response

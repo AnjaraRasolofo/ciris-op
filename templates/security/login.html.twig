@@ -16,7 +16,7 @@
                         </div>
                     {% endif %}
 
-                    <form method="post">
+                    <form method="post" action="{{ path('app_login') }}">
                         <div class="mb-3">
                             <label for="inputUsername" class="form-label">Nom d'utilisateur</label>
                             <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required autofocus>
@@ -33,7 +33,7 @@
                         </div>
 
                         <input type="hidden" name="_csrf_token"
-                            value="{{ csrf_token('app_login') }}"
+                            value="{{ csrf_token('authenticate') }}"
                         >
 
                         <button type="submit" class="btn btn-primary w-100">Se connecter</button>

@@ -9,18 +9,20 @@ security:
             entity:
                 class: App\Entity\User
                 property: username
+    
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
         main:
             lazy: true
             provider: app_user_provider
             custom_authenticator: App\Security\AppCustomAuthenticator
+            entry_point: App\Security\AppCustomAuthenticator
+
             logout:
                 path: app_logout
-                # where to redirect after logout
-                # target: app_any_route
 
             remember_me:
                 secret: '%kernel.secret%'
@@ -28,11 +30,9 @@ security:
                 path: /
                 always_remember_me: true
 
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#the-firewall
+        # No need for entry_point here, form_login handles it
 
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
+
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
@@ -43,6 +43,13 @@ security:
 
         # Protéger tout le reste
         - { path: ^/, roles: ROLE_USER }
+
+# config/packages/framework.yaml
+
+framework:
+    csrf_protection:
+        enabled: true
+
 
 when@test:
     security:
@@ -56,3 +63,4 @@ when@test:
                 cost: 4 # Lowest possible value for bcrypt
                 time_cost: 3 # Lowest possible value for argon
                 memory_cost: 10 # Lowest possible value for argon
+

@@ -16,9 +16,9 @@ class SecurityController extends AbstractController
     public function login(Request $request, AuthenticationUtils $authenticationUtils, CsrfTokenManagerInterface $csrfTokenManager): Response
     {
         $token = new CsrfToken('app_login', $request->request->get('_token')); 
-        /*if ($this->getUser()) {
+        if ($this->getUser()) {
              return $this->redirectToRoute('app_home');
-         }*/
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
