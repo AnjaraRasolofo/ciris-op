@@ -30,7 +30,7 @@ class CongeType extends AbstractType
                 ],
                 'required' => 'true',
             ])
-            ->add('user', EntityType::class, [
+            ->add('operateur', EntityType::class, [
                 'class' => Operateur::class,
                 'choice_label' => 'prenom',
             ])

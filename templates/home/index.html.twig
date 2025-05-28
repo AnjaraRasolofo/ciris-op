@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bienvenue dans CIRIS-OP!{% endblock %}
+{% block title %}CIRIS-OP - Accueil{% endblock %}
 
 {% block body %}
 <style>
@@ -25,14 +25,14 @@
     <div class="container mt-5">
     <div class="row">
       <!-- Nombre total d'opérateurs -->
-      <div class="col-md-3">
+      <div class="col-md-3"><a href="/operateurs/actifs" class="text-decoration-none text-reset">
         <div class="card card-info">
           <div class="card-body text-center">
             <h5 class="card-title">Total des opérateurs</h5>
             <p class="display-4">{{ totalOperateurs }}</p>
             <p>Opérateurs actifs</p>
           </div>
-        </div>
+        </div></a>
       </div>
 
       <!-- Sessions en cours -->
@@ -40,7 +40,7 @@
         <div class="card card-info">
           <div class="card-body text-center">
             <h5 class="card-title">Sessions en cours</h5>
-            <p class="display-4">{{ stats.totalSessions }}</p>
+            <p class="display-4"><a href="/sessions">{{ stats.totalSessions }}</a></p>
             <p>Sessions actives</p>
           </div>
         </div>

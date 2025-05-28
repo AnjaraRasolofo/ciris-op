@@ -3,15 +3,12 @@
 {% block title %}CIRIS-OP | Operateurs{% endblock %}
 
 {% block body %}
-    <h1 class="mb-3">Liste des operateurs</h1>
+    <h1 class="mb-3">Liste des operateurs actifs</h1>
     <div class="d-flex justify-content-between mb-3">
-        <div>
-            <a href="{{ path('app_operateur_new') }}" class="btn btn-primary"><i class="bi bi-plus-square"></i> Nouveau </a>
-            <a href="{{ path('app_operateurs_actifs') }}" class="btn btn-primary"><i class="bi bi-person-fill-check"></i> Les actifs </a>
-        </div>
+        <a href="{{ path('app_operateur_index') }}" class="btn btn-primary"><i class="bi bi-plus-square"></i> Voir les tous opérateurs </a>
         <form method="get" action="" class="d-flex" role="search">
-            <input type="text" name="search" value="{{ search }}" class="form-control me-2" placeholder="Rechercher un nom...">
-            <button type="submit" class="btn btn-warning"><i class="bi bi-search"></i></button>
+            <input type="text" name="search" {#value="{{ search }}"#}class="form-control me-2" placeholder="Rechercher un nom...">
+            <button type="submit" class="btn btn-warning">Rechercher</button>
         </form>
     </div>
     <table class="table">
@@ -19,30 +16,25 @@
             <tr>
                 <th>Id</th>
                 <th>Nom</th>
-                <th style="max-width: 250px;">Email</th>
-                <th>Telephone</th>
-                <th>Poste</th>
+                <th>Heure de connexion</th>
                 <th>Status</th>
                 <th style="width: 220px;">actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for operateur in operateurs %}
+        {% for operateur in operateursActifs %}
             <tr>
-                <td>{{ operateur.id }}</td>
-                <td>{{ operateur.prenom }}</td>
-                <td>{{ operateur.email }}</td>
-                <td>{{ operateur.telephone }}</td>
-                <td>{{ operateur.poste }}</td>
-                <td>{{ operateur.status }}</td>
+                <td>{{ operateur.operateur.id }}</td>
+                <td>{{ operateur.operateur.prenom }}</td>
+                <td>{{ operateur.debut | date('Y-m-d H:i:s') }}</td>
+                <td>{{ operateur.operateur.status }}</td>
                 <td>
                     <a href="{{ path('app_operateur_show', {'id': operateur.id}) }}" class="btn btn-secondary"><i class="bi bi-eye-fill"></i></a>
-                    <a href="{{ path('app_operateur_edit', {'id': operateur.id}) }}" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="10">aucun enregistrement trouvé</td>
+                <td colspan="10">Aucun opérateur actif</td>
             </tr>
         {% endfor %}
 

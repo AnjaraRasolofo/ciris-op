@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Session index{% endblock %}
+{% block title %}CIRIS-OP | Sessions{% endblock %}
 
 {% block body %}
-    <h1 class="mb-3">Session index</h1>
+    <h1 class="mb-3">Sessions des opérateurs</h1>
     <a href="{{ path('app_session_new') }}" class="btn btn-primary mb-3"><i class="bi bi-plus-square"></i> Nouveau</a>
     <table class="table">
         <thead>
@@ -33,9 +33,22 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">Aucun enregistrement trouvé</td>
             </tr>
         {% endfor %}
+
+        <div class="pagination">
+            {% if currentPage > 1 %}
+                <a href="?page={{ currentPage - 1 }}" class="text-decoration-none me-3 mb-3">← Précédent</a>
+            {% endif %}
+
+            Page {{ currentPage }} sur {{ totalPages }}
+
+            {% if currentPage < totalPages %}
+                <a href="?page={{ currentPage + 1 }}" class="text-decoration-none ms-3 mb-3">Suivant →</a>
+            {% endif %}
+        </div>
+
         </tbody>
     </table>
 

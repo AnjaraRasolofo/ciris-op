@@ -30,6 +30,9 @@ class Session
     #[ORM\JoinColumn(nullable: false)]
     private ?Operateur $operateur = null;
 
+    #[ORM\Column(type: 'boolean')]
+    private bool $actif;
+
     public function getId(): ?int
     {
         return $this->id;

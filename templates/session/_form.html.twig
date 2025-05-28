@@ -1,4 +1,11 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="d-flex mt-3 mb-5">
+        <button class="btn btn-primary me-2"><i class="bi bi-pencil-square"></i> {{ button_label|default('Enregistrer') }}</button>
+    
 {{ form_end(form) }}
+
+{% if session.id is not null %}
+           {{ include('session/_delete_form.html.twig', {'session': session}) }}
+    </div>
+{% endif %}

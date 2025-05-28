@@ -1,4 +1,12 @@
+
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="d-flex mt-3 mb-5">
+        <button class="btn btn-primary me-2"><i class="bi bi-pencil-square"></i> {{ button_label|default('Enregistrer') }}</button>
+    
 {{ form_end(form) }}
+
+{% if planning.id is not null %}
+           {{ include('planning/_delete_form.html.twig', {'planning': planning}) }}
+    </div>
+{% endif %}

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Congés des personnels{% endblock %}
+{% block title %}CIRIS-OP | Congés{% endblock %}
 
 {% block body %}
     <h1 class="mb-3">Congés des personnels</h1>
@@ -33,9 +33,21 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">Auncun enregistrement trouvé</td>
             </tr>
         {% endfor %}
+
+        <div class="pagination">
+            {% if currentPage > 1 %}
+                <a href="?page={{ currentPage - 1 }}" class="text-decoration-none me-3 mb-3">← Précédent</a>
+            {% endif %}
+
+            Page {{ currentPage }} sur {{ totalPages }}
+
+            {% if currentPage < totalPages %}
+                <a href="?page={{ currentPage + 1 }}" class="text-decoration-none ms-3 mb-3">Suivant →</a>
+            {% endif %}
+        </div>
         </tbody>
     </table>
 {% endblock %}

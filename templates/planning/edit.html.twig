@@ -1,13 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Planning{% endblock %}
+{% block title %}Modifier un Planning{% endblock %}
 
 {% block body %}
-    <h1>Edit Planning</h1>
+    <h1>Modifier un Planning</h1>
 
-    {{ include('planning/_form.html.twig', {'button_label': 'Update'}) }}
+    <a href="{{ path('app_planning_index') }}" class="btn btn-secondary mb-2"><i class="bi bi-arrow-left-short"></i> Précedent</a>
 
-    <a href="{{ path('app_planning_index') }}">back to list</a>
+    {{ include('planning/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 
-    {{ include('planning/_delete_form.html.twig') }}
 {% endblock %}

@@ -24,7 +24,7 @@ class SessionType extends AbstractType
             ->add('messagesRecus')
             ->add('operateur', EntityType::class, [
                 'class' => Operateur::class,
-                'choice_label' => 'id',
+                'choice_label' => 'prenom',
             ])
         ;
     }

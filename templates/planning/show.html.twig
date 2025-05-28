@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Planning</h1>
 
+    <a href="{{ path('app_planning_index') }}" class="btn btn-secondary"><i class="bi bi-arrow-left-short"></i> Précedent</a>
+
     <table class="table">
         <tbody>
             <tr>
@@ -26,9 +28,11 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_planning_index') }}">back to list</a>
+    <div class="d-flex mt-3">
+        <a href="{{ path('app_planning_edit', {'id': planning.id}) }}" class="btn btn-primary me-2">
+            <i class="bi bi-pencil-square"></i> Modifier
+        </a>
 
-    <a href="{{ path('app_planning_edit', {'id': planning.id}) }}"><i class="bi bi-pencil-square"></i></a>
-
-    {{ include('planning/_delete_form.html.twig') }}
+        {{ include('operateur/_delete_form.html.twig', {'planning' :planning}) }}
+    </div>
 {% endblock %}

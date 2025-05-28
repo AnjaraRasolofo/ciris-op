@@ -32,7 +32,6 @@ class AppCustomAuthenticator extends AbstractLoginFormAuthenticator
 
    public function supports(Request $request): bool
 {
-    dump($request->attributes->get('_route'), $request->isMethod('POST'));
     return $request->attributes->get('_route') === 'app_login'
         && $request->isMethod('POST');
 }

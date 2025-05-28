@@ -3,8 +3,10 @@
 namespace App\Repository;
 
 use App\Entity\Session;
+use App\Entity\Operateur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * @extends ServiceEntityRepository<Session>
@@ -16,6 +18,16 @@ class SessionRepository extends ServiceEntityRepository
         parent::__construct($registry, Session::class);
     }
 
+    public function findPaginated(int $page = 1, int $limit=10) : Paginator {
+        $query = $this->createQueryBuilder('s')
+            ->orderBy('s.id', 'DESC')
+            ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->getQuery();
+
+        return new Paginator($query);
+    }
+
     public function countActiveSessions(): int
     {
         return $this->createQueryBuilder('s')
@@ -24,6 +36,19 @@ class SessionRepository extends ServiceEntityRepository
             ->setParameter('active', true)
             ->getQuery()
             ->getSingleScalarResult() ?? 0;
+    }
+
+    public function findActifsPaginated(): array {
+
+        return $this->createQueryBuilder('s')
+            ->innerJoin('s.operateur', 'o')
+            ->addSelect('o')
+            ->where('s.actif = :val')
+            ->setParameter('val', true)
+            ->orderBy('s.debut', 'DESC')
+            ->getQuery()
+            ->getResult();
+
     }
 
     public function getTotalMessagesEnvoyes(): int

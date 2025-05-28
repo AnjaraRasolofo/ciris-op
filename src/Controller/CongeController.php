@@ -15,10 +15,20 @@ use Symfony\Component\Routing\Attribute\Route;
 final class CongeController extends AbstractController
 {
     #[Route(name: 'app_conge_index', methods: ['GET'])]
-    public function index(CongeRepository $congeRepository): Response
+    public function index(Request $request, CongeRepository $congeRepository): Response
     {
+        $page = max(1, $request->query->getInt('page', 1));
+        //$search = $request->query->get('search', '');
+        $limit = 10;
+
+        $paginator = $congeRepository->findPaginated($page, $limit);
+        $totalItems = count($paginator);
+        $totalPages = ceil($totalItems / $limit);
+
         return $this->render('conge/index.html.twig', [
-            'conges' => $congeRepository->findAll(),
+            'conges' => $paginator,
+            'currentPage' => $page,
+            'totalPages' => $totalPages
         ]);
     }
 

@@ -27,6 +27,18 @@ class OperateurRepository extends ServiceEntityRepository
         return new Paginator($query);
     }
 
+    public function findActifsPaginated(int $page = 1, int $limit=10): Paginator {
+       $query = $this->createQueryBuilder('o')
+            ->where('o.status = :status')
+            ->setParameter('status', 'actif') 
+            ->orderBy('o.nom', 'ASC')
+             ->setFirstResult(($page - 1) * $limit)
+            ->setMaxResults($limit)
+            ->getQuery();
+
+        return new Paginator($query);
+    }
+
     public function findPaginatedByName(string $search = '', int $page = 1, int $limit = 10): Paginator
     {
         $qb = $this->createQueryBuilder('o');
@@ -41,6 +53,33 @@ class OperateurRepository extends ServiceEntityRepository
         ->setMaxResults($limit);
 
         return new Paginator($qb->getQuery());
+    }
+
+    public function resetActifStatus(): void
+    {
+        $this->createQueryBuilder('o')
+            ->update()
+            ->set('o.status', ':status')
+            ->setParameter('status', 'inactif')
+            ->getQuery()
+            ->execute();
+    }
+
+    public function activateRandomOperators(int $count): void
+    {
+        $operateurs = $this->createQueryBuilder('o')
+            ->getQuery()
+            ->getResult();
+
+        shuffle($operateurs);
+
+        $selected = array_slice($operateurs, 0, $count);
+
+        foreach ($selected as $op) {
+            $op->setIsActif(true);
+        }
+
+        $this->_em->flush();
     }
 
 }

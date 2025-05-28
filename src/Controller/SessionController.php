@@ -15,10 +15,20 @@ use Symfony\Component\Routing\Attribute\Route;
 final class SessionController extends AbstractController
 {
     #[Route(name: 'app_session_index', methods: ['GET'])]
-    public function index(SessionRepository $sessionRepository): Response
+    public function index(Request $request, SessionRepository $sessionRepository): Response
     {
+        $page = max(1, $request->query->getInt('page', 1));
+        //$search = $request->query->get('search', '');
+        $limit = 10;
+
+        $paginator = $sessionRepository->findPaginated($page, $limit);
+        $totalItems = count($paginator);
+        $totalPages = ceil($totalItems / $limit);
+
         return $this->render('session/index.html.twig', [
-            'sessions' => $sessionRepository->findAll(),
+            'sessions' => $paginator,
+            'currentPage' => $page,
+            'totalPages' => $totalPages
         ]);
     }
 

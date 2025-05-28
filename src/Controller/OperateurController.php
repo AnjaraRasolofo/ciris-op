@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Operateur;
 use App\Form\OperateurType;
 use App\Repository\OperateurRepository;
+use App\Repository\SessionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,6 +32,42 @@ final class OperateurController extends AbstractController
             'currentPage' => $page,
             'totalPages' => $totalPages,
             'search' => $search
+        ]);
+    }
+/*
+    #[Route('/actifs', name: 'app_operateurs_actifs')]
+    public function operateursActifs(Request $request, OperateurRepository $repo): Response
+    {
+        $page = max(1, $request->query->getInt('page', 1));
+        $limit = 10;
+
+        $paginator = $repo->findActifsPaginated($page, $limit);
+        $totalItems = count($paginator);
+        $totalPages = ceil($totalItems / $limit);
+
+        return $this->render('operateur/actifs.html.twig', [
+            'operateursActifs' => $paginator,
+            'currentPage' => $page,
+            'totalPages' => $totalPages
+        ]);
+    }*/
+
+    #[Route('/actifs', name: 'app_operateurs_actifs')]
+    public function operateursActifs(Request $request, SessionRepository $sessionRepo): Response
+    {
+        //$sessions = $sessionRepo->findOperateursActifs();
+        
+        $page = max(1, $request->query->getInt('page', 1));
+        $limit = 10;
+
+        $paginator = $sessionRepo->findActifsPaginated($page, $limit);
+        $totalItems = count($paginator);
+        $totalPages = ceil($totalItems / $limit);
+
+        return $this->render('operateur/actifs.html.twig', [
+            'operateursActifs' => $paginator,
+            'currentPage' => $page,
+            'totalPages' => $totalPages
         ]);
     }
 

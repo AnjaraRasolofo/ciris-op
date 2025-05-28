@@ -4,8 +4,8 @@
 
 {% block body %}
     <h1>Create new Planning</h1>
-
+    <a href="{{ path('app_planning_index') }}" class="btn btn-secondary mb-3"><i class="bi bi-arrow-left-short"></i> Précedent</a>
+    
     {{ include('planning/_form.html.twig') }}
 
-    <a href="{{ path('app_planning_index') }}">back to list</a>
 {% endblock %}
